@@ -1,0 +1,385 @@
+{
+  "meta": {
+    "base_url": "http://localhost:8001",
+    "auth_header": "Authorization: Bearer arifgate-secret-2024",
+    "note": "Each user has a role, profile, and a conversation array. Send turns in order. Copy session_id from the first response and pass it in subsequent turns."
+  },
+  "users": [
+    {
+      "user": {
+        "id": "usr_001",
+        "name": "Layla Hassan",
+        "email": "layla.hassan@example.com",
+        "role": "Student",
+        "endpoint": "POST /v1/chat/student",
+        "profile": {
+          "enrolled_courses": ["Python Basics", "HTML & CSS"],
+          "goal": "Become a full-stack web developer",
+          "skill_level": "Beginner"
+        }
+      },
+      "conversation": [
+        {
+          "turn": 1,
+          "description": "Opening question — course guidance",
+          "request": {
+            "message": "I know basic Python and HTML. What should I learn next to become a full-stack developer?",
+            "session_id": null,
+            "use_rag": false
+          }
+        },
+        {
+          "turn": 2,
+          "description": "Follow-up in same session",
+          "request": {
+            "message": "How long will it take to learn JavaScript if I study 2 hours a day?",
+            "session_id": "COPY_FROM_TURN_1_RESPONSE",
+            "use_rag": false
+          }
+        },
+        {
+          "turn": 3,
+          "description": "Course recommendation with RAG context",
+          "request": {
+            "message": "Which of these courses fits my current level best?",
+            "session_id": "COPY_FROM_TURN_1_RESPONSE",
+            "use_rag": true,
+            "context_data": [
+              "Course: JavaScript for Beginners. Level: Beginner. Topics: variables, DOM, events, fetch API. Rating: 4.7. Duration: 12 hours.",
+              "Course: React Fundamentals. Level: Intermediate. Prerequisites: JavaScript ES6. Rating: 4.9. Duration: 18 hours.",
+              "Course: Node.js & Express. Level: Intermediate. Prerequisites: JavaScript basics. Rating: 4.6. Duration: 15 hours."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "user": {
+        "id": "usr_002",
+        "name": "Dr. Khalid Mansour",
+        "email": "khalid.mansour@example.com",
+        "role": "Instructor",
+        "endpoint": "POST /v1/chat/instructor",
+        "profile": {
+          "courses_published": 3,
+          "specialization": "Data Science & Machine Learning",
+          "total_students": 4200,
+          "avg_rating": 4.6
+        }
+      },
+      "conversation": [
+        {
+          "turn": 1,
+          "description": "Generate a course description",
+          "request": {
+            "message": "Generate a course description for: Machine Learning with Python — covering linear regression, decision trees, random forests, and neural networks. Target audience: developers with basic Python knowledge.",
+            "session_id": null,
+            "use_rag": false
+          }
+        },
+        {
+          "turn": 2,
+          "description": "Follow-up — ask about pricing strategy",
+          "request": {
+            "message": "What price point would you recommend for this course given the content depth and my existing 4.6 rating?",
+            "session_id": "COPY_FROM_TURN_1_RESPONSE",
+            "use_rag": false
+          }
+        },
+        {
+          "turn": 3,
+          "description": "Ask for improvement advice with context of existing courses",
+          "request": {
+            "message": "My current Data Science course has a 4.6 rating but students say the projects are too theoretical. How can I add more practical exercises?",
+            "session_id": "COPY_FROM_TURN_1_RESPONSE",
+            "use_rag": true,
+            "context_data": [
+              "Student feedback: 'Great theory but I wish there were more real-world datasets to work with.'",
+              "Student feedback: 'The final project was too simple. I wanted something I could put on my portfolio.'",
+              "Student feedback: 'Loved the content but the quizzes felt disconnected from the lectures.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "user": {
+        "id": "usr_003",
+        "name": "Nora Al-Rashid",
+        "email": "nora.alrashid@example.com",
+        "role": "Client",
+        "endpoint": "POST /v1/chat/client",
+        "profile": {
+          "company": "Nora Boutique",
+          "industry": "E-commerce / Fashion",
+          "projects_posted": 2,
+          "budget_range": "$1000 - $5000"
+        }
+      },
+      "conversation": [
+        {
+          "turn": 1,
+          "description": "Generate a job description",
+          "request": {
+            "message": "I need a developer to build an online store for my fashion boutique. It should have product listings with filters, a shopping cart, Stripe payments, order tracking, and a simple admin panel to manage inventory.",
+            "session_id": null,
+            "use_rag": false
+          }
+        },
+        {
+          "turn": 2,
+          "description": "Follow-up — ask about budget",
+          "request": {
+            "message": "What is a realistic budget and timeline for this project?",
+            "session_id": "COPY_FROM_TURN_1_RESPONSE",
+            "use_rag": false
+          }
+        },
+        {
+          "turn": 3,
+          "description": "Candidate recommendation with freelancer profiles",
+          "request": {
+            "message": "Which of these freelancers would you recommend for my e-commerce project?",
+            "session_id": "COPY_FROM_TURN_1_RESPONSE",
+            "use_rag": true,
+            "context_data": [
+              "Freelancer: Yusuf A. Skills: React, Node.js, Stripe, MongoDB. Experience: 4 years. Rate: $40/hr. Rating: 4.8. Portfolio: 3 e-commerce sites.",
+              "Freelancer: Mia T. Skills: Vue.js, Laravel, MySQL, PayPal. Experience: 5 years. Rate: $50/hr. Rating: 4.9. Portfolio: 5 e-commerce sites.",
+              "Freelancer: Rami K. Skills: WordPress, WooCommerce, Stripe. Experience: 3 years. Rate: $25/hr. Rating: 4.5. Portfolio: 8 WooCommerce stores."
+            ]
+          }
+        },
+        {
+          "turn": 4,
+          "description": "Ask about milestone payments",
+          "request": {
+            "message": "How should I structure milestone payments to protect myself if the freelancer does not deliver on time?",
+            "session_id": "COPY_FROM_TURN_1_RESPONSE",
+            "use_rag": false
+          }
+        }
+      ]
+    },
+    {
+      "user": {
+        "id": "usr_004",
+        "name": "Tariq Saleh",
+        "email": "tariq.saleh@example.com",
+        "role": "Freelancer",
+        "endpoint": "POST /v1/chat/freelancer",
+        "profile": {
+          "skills": ["Python", "Django", "FastAPI", "PostgreSQL", "Docker", "AWS"],
+          "experience_years": 5,
+          "hourly_rate": "$45",
+          "rating": 4.8,
+          "proposals_sent": 12,
+          "jobs_won": 7
+        }
+      },
+      "conversation": [
+        {
+          "turn": 1,
+          "description": "Generate a proposal for a job",
+          "request": {
+            "message": "Write a proposal for this job posting: 'We need a backend developer to build a REST API for a healthcare appointment booking system. Tech stack: Django, PostgreSQL, JWT authentication. Budget: $3500. Duration: 6 weeks.' My skills: Django, FastAPI, PostgreSQL, Docker, 5 years experience, 4.8 rating.",
+            "session_id": null,
+            "use_rag": false
+          }
+        },
+        {
+          "turn": 2,
+          "description": "Follow-up — ask how to make the proposal stronger",
+          "request": {
+            "message": "How can I make this proposal stand out from other applicants? The client mentioned they received 15 proposals already.",
+            "session_id": "COPY_FROM_TURN_1_RESPONSE",
+            "use_rag": false
+          }
+        },
+        {
+          "turn": 3,
+          "description": "Extract skill tags from profile",
+          "request": {
+            "message": "Extract skill tags from my profile description: I am a backend developer with 5 years of experience specializing in Python, Django, and FastAPI. I build scalable REST APIs, work with PostgreSQL and Redis, containerize apps with Docker, and deploy on AWS EC2 and RDS. I follow TDD practices and write comprehensive test suites.",
+            "session_id": "COPY_FROM_TURN_1_RESPONSE",
+            "use_rag": false
+          }
+        },
+        {
+          "turn": 4,
+          "description": "Job recommendations with RAG context",
+          "request": {
+            "message": "Which of these jobs is the best match for my skills?",
+            "session_id": "COPY_FROM_TURN_1_RESPONSE",
+            "use_rag": true,
+            "context_data": [
+              "Job: Build a Django REST API for a fintech startup. Budget: $4000. Duration: 8 weeks. Required: Django, PostgreSQL, Celery, Redis.",
+              "Job: React Native mobile app for a gym management system. Budget: $2500. Duration: 6 weeks. Required: React Native, Firebase.",
+              "Job: FastAPI microservice for an AI analytics platform. Budget: $3000. Duration: 5 weeks. Required: FastAPI, Docker, AWS, PostgreSQL.",
+              "Job: WordPress site for a restaurant. Budget: $500. Duration: 1 week. Required: WordPress, WooCommerce."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "user": {
+        "id": "usr_005",
+        "name": "Admin — Platform Team",
+        "email": "admin@arifgate.com",
+        "role": "Admin",
+        "endpoint": "POST /v1/chat/admin",
+        "profile": {
+          "department": "Trust & Safety",
+          "access_level": "Full",
+          "markets_managed": ["Course Marketplace", "Freelancing Marketplace"]
+        }
+      },
+      "conversation": [
+        {
+          "turn": 1,
+          "description": "Request weekly monitoring metrics",
+          "request": {
+            "message": "What are the most important metrics I should monitor weekly to track platform health across both the Course Marketplace and Freelancing Marketplace?",
+            "session_id": null,
+            "use_rag": false
+          }
+        },
+        {
+          "turn": 2,
+          "description": "Follow-up — moderation case",
+          "request": {
+            "message": "A user has been reported 4 times this week for leaving fake 5-star reviews on courses they never enrolled in. What is the correct moderation process and what actions can I take?",
+            "session_id": "COPY_FROM_TURN_1_RESPONSE",
+            "use_rag": false
+          }
+        },
+        {
+          "turn": 3,
+          "description": "Content review guidance",
+          "request": {
+            "message": "A new course titled 'Earn $10,000 a month with crypto' has been flagged by 3 users for misleading claims. How should I review and decide whether to approve, request changes, or remove it?",
+            "session_id": "COPY_FROM_TURN_1_RESPONSE",
+            "use_rag": false
+          }
+        }
+      ]
+    },
+    {
+      "user": {
+        "id": "usr_006",
+        "name": "Sara Yilmaz",
+        "email": null,
+        "role": "Guest",
+        "endpoint": "POST /v1/chat/guest",
+        "profile": {
+          "status": "Not registered",
+          "interest": "Learning online courses"
+        }
+      },
+      "conversation": [
+        {
+          "turn": 1,
+          "description": "Guest asks what Arifgate is",
+          "request": {
+            "message": "What is Arifgate and what can I do here?",
+            "session_id": null,
+            "use_rag": false
+          }
+        },
+        {
+          "turn": 2,
+          "description": "Follow-up — asks about courses",
+          "request": {
+            "message": "Are there courses for complete beginners? I have never coded before.",
+            "session_id": "COPY_FROM_TURN_1_RESPONSE",
+            "use_rag": false
+          }
+        },
+        {
+          "turn": 3,
+          "description": "Asks how to sign up",
+          "request": {
+            "message": "How do I create an account and start learning?",
+            "session_id": "COPY_FROM_TURN_1_RESPONSE",
+            "use_rag": false
+          }
+        }
+      ]
+    },
+    {
+      "user": {
+        "id": "usr_007",
+        "name": "James Okafor",
+        "email": null,
+        "role": "Guest",
+        "endpoint": "POST /v1/chat/guest",
+        "profile": {
+          "status": "Not registered",
+          "interest": "Hiring a freelancer"
+        }
+      },
+      "conversation": [
+        {
+          "turn": 1,
+          "description": "Guest asks about the freelancing marketplace",
+          "request": {
+            "message": "I need someone to build a website for my small business. Can I find a developer here?",
+            "session_id": null,
+            "use_rag": false
+          }
+        },
+        {
+          "turn": 2,
+          "description": "Asks about cost and safety",
+          "request": {
+            "message": "How much does it cost to hire a freelancer and is it safe to pay through the platform?",
+            "session_id": "COPY_FROM_TURN_1_RESPONSE",
+            "use_rag": false
+          }
+        },
+        {
+          "turn": 3,
+          "description": "Asks how to post a job",
+          "request": {
+            "message": "How do I post a job and start receiving proposals from freelancers?",
+            "session_id": "COPY_FROM_TURN_1_RESPONSE",
+            "use_rag": false
+          }
+        }
+      ]
+    },
+    {
+      "user": {
+        "id": "usr_008",
+        "name": "Anonymous Visitor",
+        "email": null,
+        "role": "Guest",
+        "endpoint": "POST /v1/chat/guest",
+        "profile": {
+          "status": "Not registered",
+          "interest": "General platform exploration"
+        }
+      },
+      "conversation": [
+        {
+          "turn": 1,
+          "description": "Guest asks about both marketplaces",
+          "request": {
+            "message": "What is the difference between the Course Marketplace and the Freelancing Marketplace?",
+            "session_id": null,
+            "use_rag": false
+          }
+        },
+        {
+          "turn": 2,
+          "description": "Asks about available categories",
+          "request": {
+            "message": "What kinds of courses and freelance skills are available on the platform?",
+            "session_id": "COPY_FROM_TURN_1_RESPONSE",
+            "use_rag": false
+          }
+        }
+      ]
+    }
+  ]
+}

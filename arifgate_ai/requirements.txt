@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+openai
+pydantic
+chromadb
+faiss-cpu
+python-dotenv
+pytest
+pytest-asyncio
+httpx
+hypothesis

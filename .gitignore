@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+envchat/
+
+
+# Environment / secrets
+arifgate_ai/env
+.env
+*.env
+!*.env.example
+
+# Testing & coverage
+.pytest_cache/
+.hypothesis/
+htmlcov/
+.coverage
+coverage.xml
+*.cover
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Vector store / ChromaDB persistence
+chroma_db/
+*.faiss
+*.index
+
+# Logs
+*.log
+logs/
