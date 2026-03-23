@@ -2,10 +2,8 @@ fastapi
 uvicorn[standard]
 openai
 pydantic
-chromadb
-faiss-cpu
 python-dotenv
+httpx
 pytest
 pytest-asyncio
-httpx
 hypothesis

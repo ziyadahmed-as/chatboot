@@ -1,3 +1,6 @@
+# Kiro IDE
+.kiro/
+
 # Python
 __pycache__/
 *.py[cod]
@@ -46,3 +49,5 @@ chroma_db/
 # Logs
 *.log
 logs/
+
+.kiro/

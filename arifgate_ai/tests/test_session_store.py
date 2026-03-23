@@ -1,5 +1,5 @@
 import time
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 import pytest
 from hypothesis import given, settings
@@ -7,6 +7,10 @@ from hypothesis import strategies as st
 
 from app.models import Message, Session
 from app.services.session_store import SessionStore, _store
+
+
+def _now():
+    return datetime.now(timezone.utc)
 
 
 @pytest.fixture(autouse=True)
@@ -62,7 +66,7 @@ def test_save_persists_session(store):
 
 def test_expire_stale_removes_old_sessions(store):
     session = store.create("Student")
-    session.last_active = datetime.utcnow() - timedelta(minutes=61)
+    session.last_active = _now() - timedelta(minutes=61)
     _store[session.session_id] = session
     store.expire_stale()
     assert store.get(session.session_id) is None
@@ -76,10 +80,9 @@ def test_expire_stale_keeps_recent_sessions(store):
 
 def test_expire_stale_boundary_exactly_60_minutes(store):
     session = store.create("Student")
-    session.last_active = datetime.utcnow() - timedelta(minutes=60)
+    session.last_active = _now() - timedelta(minutes=60)
     _store[session.session_id] = session
     store.expire_stale()
-    # exactly 60 min ago should be evicted (last_active <= cutoff)
     assert store.get(session.session_id) is None
 
 
@@ -117,7 +120,7 @@ def test_property_expire_stale_evicts_sessions_older_than_60_minutes(minutes_ago
     _store.clear()
     store = SessionStore()
     session = store.create("Student")
-    session.last_active = datetime.utcnow() - timedelta(minutes=minutes_ago)
+    session.last_active = _now() - timedelta(minutes=minutes_ago)
     _store[session.session_id] = session
     store.expire_stale()
     assert store.get(session.session_id) is None

@@ -1,11 +1,15 @@
 import uuid
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from app.models import Message, Session
 
 _store: dict[str, Session] = {}
 _SESSION_TTL_MINUTES = 60
 _CONTEXT_WINDOW = 20
+
+
+def _now() -> datetime:
+    return datetime.now(timezone.utc)
 
 
 class SessionStore:
@@ -18,11 +22,11 @@ class SessionStore:
         return session
 
     def save(self, session: Session) -> None:
-        session.last_active = datetime.utcnow()
+        session.last_active = _now()
         _store[session.session_id] = session
 
     def expire_stale(self) -> None:
-        cutoff = datetime.utcnow() - timedelta(minutes=_SESSION_TTL_MINUTES)
+        cutoff = _now() - timedelta(minutes=_SESSION_TTL_MINUTES)
         stale = [sid for sid, s in _store.items() if s.last_active <= cutoff]
         for sid in stale:
             del _store[sid]

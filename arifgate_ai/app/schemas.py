@@ -10,6 +10,7 @@ class Role(str, Enum):
     admin = "Admin"
     guest = "Guest"
 
+
 class Recommendation(BaseModel):
     title: str
     description: str
@@ -27,9 +28,7 @@ class ChatRequest(BaseModel):
     role: Role
     message: str
     session_id: str | None = None
-    context_data: list[str] | None = None  # RAG documents
-    context: dict | None = None            # arbitrary extra context
-    use_rag: bool = False
+    context_data: list[str] | None = None
 
 
 class ChatResponse(BaseModel):
@@ -38,12 +37,3 @@ class ChatResponse(BaseModel):
     role: Role
     recommendations: list[Recommendation] = []
     matches: list[Match] = []
-
-
-class IngestRequest(BaseModel):
-    documents: list[str]
-    domain: str | None = None
-
-
-class IngestResponse(BaseModel):
-    ingested: int
