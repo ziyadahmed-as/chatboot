@@ -1,7 +1,4 @@
-"""
-Structured AI tasks: content generation, recommendations, and matching.
-All calls go through llm_client.complete() → OpenAI chat completions.
-"""
+
 import json
 import re
 
@@ -24,9 +21,7 @@ def _extract_json(text: str) -> dict:
     return json.loads(match.group())
 
 
-# ---------------------------------------------------------------------------
 # Course description generator
-# ---------------------------------------------------------------------------
 
 async def generate_course_description(req: CourseDescriptionRequest) -> CourseDescriptionResponse:
     prompt = f"""Generate a course description for the following course.
@@ -49,10 +44,7 @@ Level: {req.level}"""
         highlights=data.get("highlights", []),
     )
 
-
-# ---------------------------------------------------------------------------
 # Job description generator
-# ---------------------------------------------------------------------------
 
 async def generate_job_description(req: JobDescriptionRequest) -> JobDescriptionResponse:
     prompt = f"""Generate a professional job posting for a freelancing platform.
@@ -82,9 +74,7 @@ Duration hint: {req.duration or "not specified"}"""
     )
 
 
-# ---------------------------------------------------------------------------
 # Proposal generator
-# ---------------------------------------------------------------------------
 
 async def generate_proposal(req: ProposalRequest) -> ProposalResponse:
     prompt = f"""Write a compelling freelancer proposal for the following job.
@@ -109,10 +99,7 @@ Hourly rate: {req.hourly_rate or "not specified"}"""
     )
 
 
-# ---------------------------------------------------------------------------
 # Skill & keyword tagger
-# ---------------------------------------------------------------------------
-
 async def extract_skill_tags(req: SkillTagRequest) -> SkillTagResponse:
     prompt = f"""Extract skills and keywords from the following text.
 Return ONLY a JSON object with keys:
@@ -132,11 +119,7 @@ Text: {req.text}"""
         keywords=data.get("keywords", []),
     )
 
-
-# ---------------------------------------------------------------------------
 # Smart recommendations
-# ---------------------------------------------------------------------------
-
 async def get_recommendations(req: RecommendRequest) -> RecommendResponse:
     items_text = "\n".join(f"{i+1}. {item}" for i, item in enumerate(req.items))
     prompt = f"""A {req.role.value} is looking for: "{req.query}"
@@ -168,9 +151,7 @@ Rank by relevance to the user's query."""
     return RecommendResponse(recommendations=recs)
 
 
-# ---------------------------------------------------------------------------
-# Job–Freelancer matching
-# ---------------------------------------------------------------------------
+# Job for Freelancer matching
 
 async def match_freelancers(req: MatchRequest) -> MatchResponse:
     profiles_text = "\n".join(f"{i+1}. {p}" for i, p in enumerate(req.freelancer_profiles))

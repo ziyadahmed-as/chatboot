@@ -1,7 +1,4 @@
-"""
-Recommendation and matching endpoints — Phase 2.
-Smart course/job recommendations and job–freelancer matching.
-"""
+
 from fastapi import APIRouter
 
 from app.schemas import (

@@ -1,7 +1,4 @@
-"""
-Content generation endpoints — Phase 2.
-Course descriptions, job descriptions, proposals, skill tagging.
-"""
+
 from fastapi import APIRouter
 
 from app.schemas import (

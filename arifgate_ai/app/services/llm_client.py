@@ -17,7 +17,7 @@ def _get_client() -> AsyncOpenAI:
             raise RuntimeError("OPENAI_API_KEY environment variable is not set")
         _client = AsyncOpenAI(
             api_key=api_key,
-            timeout=httpx.Timeout(30.0),
+            timeout=httpx.Timeout(60.0),
         )
     return _client
 

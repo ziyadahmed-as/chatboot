@@ -8,12 +8,7 @@ class Role(str, Enum):
     freelancer = "Freelancer"
     client = "Client"
     admin = "Admin"
-    guest = "Guest"
-
-
-# ---------------------------------------------------------------------------
-# Chat
-# ---------------------------------------------------------------------------
+  
 
 class Recommendation(BaseModel):
     title: str
@@ -41,11 +36,6 @@ class ChatResponse(BaseModel):
     role: Role
     recommendations: list[Recommendation] = []
     matches: list[Match] = []
-
-
-# ---------------------------------------------------------------------------
-# Content generation
-# ---------------------------------------------------------------------------
 
 class CourseDescriptionRequest(BaseModel):
     title: str
@@ -81,41 +71,30 @@ class ProposalRequest(BaseModel):
     experience_years: int
     hourly_rate: str = ""
 
-
 class ProposalResponse(BaseModel):
     proposal: str
     key_selling_points: list[str]
 
-
 class SkillTagRequest(BaseModel):
     text: str  # profile bio or job description
-
 
 class SkillTagResponse(BaseModel):
     skills: list[str]
     keywords: list[str]
-
-
-# ---------------------------------------------------------------------------
-# Recommendations & Matching
-# ---------------------------------------------------------------------------
-
 class RecommendRequest(BaseModel):
     role: Role
     query: str
-    items: list[str]  # list of course/job/profile descriptions to rank
+    items: list[str]  #
     top_k: int = 3
 
 
 class RecommendResponse(BaseModel):
     recommendations: list[Recommendation]
 
-
 class MatchRequest(BaseModel):
     job_description: str
-    freelancer_profiles: list[str]  # list of freelancer profile descriptions
+    freelancer_profiles: list[str] 
     top_k: int = 3
-
 
 class MatchResponse(BaseModel):
     matches: list[Match]
